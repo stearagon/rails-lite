@@ -5,7 +5,7 @@ require_relative '../lib/phase4/controller_base'
 describe Phase4::Session do
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
-  let(:cook) { WEBrick::Cookie.new('_rails_lite_app', { xyz: 'abc' }.to_json) }
+  let(:cook) { WEBrick::Cookie.new('my_rails', { xyz: 'abc' }.to_json) }
 
   it "deserializes json cookie if one exists" do
     req.cookies << cook
@@ -21,20 +21,20 @@ describe Phase4::Session do
         session.store_session(res)
       end
 
-      it "adds new cookie with '_rails_lite_app' name to response" do
-        cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
+      it "adds new cookie with 'my_rails' name to response" do
+        cookie = res.cookies.find { |c| c.name == 'my_rails' }
         expect(cookie).not_to be_nil
       end
 
       it "stores the cookie in json format" do
-        cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
+        cookie = res.cookies.find { |c| c.name == 'my_rails' }
         expect(JSON.parse(cookie.value)).to be_instance_of(Hash)
       end
     end
 
     context "with cookies in request" do
       before(:each) do
-        cook = WEBrick::Cookie.new('_rails_lite_app', { pho: "soup" }.to_json)
+        cook = WEBrick::Cookie.new('my_rails', { pho: "soup" }.to_json)
         req.cookies << cook
       end
 
@@ -47,7 +47,7 @@ describe Phase4::Session do
         session = Phase4::Session.new(req)
         session['machine'] = 'mocha'
         session.store_session(res)
-        cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
+        cookie = res.cookies.find { |c| c.name == 'my_rails' }
         h = JSON.parse(cookie.value)
         expect(h['pho']).to eq('soup')
         expect(h['machine']).to eq('mocha')
@@ -82,7 +82,7 @@ describe Phase4::ControllerBase do
     it "should store the session data" do
       cats_controller.session['test_key'] = 'test_value'
       cats_controller.send(method, *args)
-      cookie = res.cookies.find { |c| c.name == '_rails_lite_app' }
+      cookie = res.cookies.find { |c| c.name == 'my_rails' }
       h = JSON.parse(cookie.value)
       expect(h['test_key']).to eq('test_value')
     end
