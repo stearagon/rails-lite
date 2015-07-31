@@ -11,8 +11,7 @@ module Phase6
 
 
     def matches?(req)
-      # req.path.match(@pattern) && req.request_method.downcase.to_sym == @http_method
-      (http_method == req.request_method.downcase.to_sym) && !!(pattern =~ req.path)
+      req.path.match(@pattern) && req.request_method.downcase.to_sym == @http_method
     end
 
 

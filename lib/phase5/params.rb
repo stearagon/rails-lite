@@ -1,26 +1,23 @@
 require 'uri'
+require 'byebug'
 
 module Phase5
   class Params
     attr_accessor :params, :req
     def initialize(req, route_params = {})
       @params = {}
-      @req = req
-      parse_www_encoded_form(@req.query_string) if !@req.query_string.nil?
-      parse_www_encoded_form(@req.body) if !@req.body.nil?
+      @params.merge!(route_params)
 
-      route_params.each do |k,v|
-        @params[k] = v
+      if req.body
+        @params.merge!(parse_www_encoded_form(req.body))
       end
-
+      if req.query_string
+        @params.merge!(parse_www_encoded_form(req.query_string))
+      end
     end
 
     def [](key)
-       if @params[key].nil?
-         @params[key.to_s]
-       else
-         @params[key]
-       end
+     @params[key.to_s] || @params[key.to_sym]
     end
 
     def to_s
@@ -31,32 +28,29 @@ module Phase5
 
     private
     def parse_www_encoded_form(www_encoded_form)
-      www_encoded_form.split('&').each do |hash|
-        cookie_values = parse_key(hash)
-        i = 0
-        if cookie_values.count == 2
-          @params[cookie_values[0]] = cookie_values[1]
-        else
-          while i < cookie_values.count do
-            if i == 0
-              @params[cookie_values[i]] = {} unless @params.has_key?(cookie_values[i])
-              working_hash = @params[cookie_values[i]]
-              i += 1
-            elsif i < cookie_values.count - 2
-              working_hash[cookie_values[i]] = {} unless working_hash.has_key?(cookie_values[i])
-              working_hash = working_hash[cookie_values[i]]
-              i += 1
-            else
-              working_hash[cookie_values[i]] = cookie_values[i+1]
-              i += 2
-            end
+      params = {}
+
+      key_values = URI.decode_www_form(www_encoded_form)
+      key_values.each do |full_key, value|
+        scope = params
+
+        key_seq = parse_key(full_key)
+        key_seq.each_with_index do |key, idx|
+          if (idx + 1) == key_seq.count
+            scope[key] = value
+          else
+            scope[key] ||= {}
+            scope = scope[key]
           end
         end
       end
+
+      params
     end
 
     def parse_key(key)
       key.scan(/\w+/)
     end
+
   end
 end
