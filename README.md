@@ -4,10 +4,7 @@
     - renders html/erb template <br>
     - invoke the proper action from url address <br>
     - stores cookies <br>
-    - parses params from three different sources:<br>
-        1. request body<br>
-        2. request url<br>
-        3. request query<br>
+    - parses params from three different sources
 
 ## Languages
   - Ruby
