@@ -1,10 +1,10 @@
 # Rails-Lite
   This is a stripped down version of the Rails Controller and Router functionality.
   There are six tests servers you can run to see examples of the different functions:<br>
-    &#09 - renders html/erb template <br>
-    &#09 - invoke the proper action from url address <br>
-    &#09 - stores cookies <br>
-    &#09 - parses params from three different sources
+    - renders html/erb template <br>
+    - invoke the proper action from url address <br>
+    - stores cookies <br>
+    - parses params from three different sources
 
 ## Languages
   - Ruby
