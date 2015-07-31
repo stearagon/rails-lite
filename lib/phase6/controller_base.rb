@@ -1,12 +1,14 @@
 require_relative '../phase5/controller_base'
+require 'byebug'
 
 module Phase6
   class ControllerBase < Phase5::ControllerBase
     attr_accessor :route_params
-    # use this with the router to call action_name (:index, :show, :create...)
+
     def invoke_action(name)
-        send(name)
-        render unless already_built_response?
+        self.send(name)
+        render(name) unless already_built_response?
+        nil
     end
   end
 end
