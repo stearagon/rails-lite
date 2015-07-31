@@ -1,8 +1,8 @@
 require 'webrick'
-require_relative '../lib/phase2/controller_base'
+require_relative '../lib/controller_base'
 
 
-class MyController < Phase2::ControllerBase
+class MyController < ControllerBase
   def go
     if @req.path == "/cats"
       render_content("hello cats!", "text/html")
