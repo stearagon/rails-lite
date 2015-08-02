@@ -1,11 +1,23 @@
 # Rails-Lite
   This is a stripped down version of the Rails Controller and Router functionality.
-  
+
   There are six test servers you can run to see examples of the different functions:<br>
   * renders html/erb template <br>
   * invoke the proper action from url address <br>
   * stores cookies <br>
   * parses params from three different sources
+
+## Controller
+  Have your custom controller inherit ControllerBase (i.e. UsersController < ControllerBase ).<br><br>
+
+  Now, your controller will be able to invoke a defined action, render a template as
+  well as redirect to another url, and store session data.
+
+## Router
+  Have your custom application router inherit Router (i.e. ApplicationRouter < Router).<br><br>
+
+  Your custom router can handle incoming requests and direct them to the proper
+  controller and action.
 
 ## Languages
   - Ruby
