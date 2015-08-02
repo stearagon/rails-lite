@@ -8,13 +8,13 @@
   * parses params from three different sources
 
 ## Controller
-  Have your custom controller inherit ControllerBase (i.e. UsersController < ControllerBase ).<br><br>
+  Have your custom controller inherit ControllerBase (i.e. UsersController < ControllerBase ).<br>
 
   Now, your controller will be able to invoke a defined action, render a template as
   well as redirect to another url, and store session data.
 
 ## Router
-  Have your custom application router inherit Router (i.e. ApplicationRouter < Router).<br><br>
+  Have your custom application router inherit Router (i.e. ApplicationRouter < Router).<br>
 
   Your custom router can handle incoming requests and direct them to the proper
   controller and action.
