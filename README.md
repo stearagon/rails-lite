@@ -33,8 +33,8 @@
   WEBrick allows us to read request cookies and add cookies to the response.
 
   One of the more challenging parts of this project was dealing with Params. Request
-  body params can have nested keys, which are more difficult to parse. I used a
-  a combination or regex and URI::decode_www_form to handle the nested keys.
+  body params can have nested keys, which are more difficult to parse. I used a 
+  combination or regex and URI::decode_www_form to handle the nested keys.
 
   To make routes, I used Ruby meta-programming techniques to create routes that used
   the main http methods (:get, :post, :put, :delete).
